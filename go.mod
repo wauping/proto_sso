@@ -1,4 +1,4 @@
-module proto_sso
+module github.com/wauping/proto_sso
 
 go 1.23.1
 
