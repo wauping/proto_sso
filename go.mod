@@ -1,4 +1,4 @@
-module protos
+module proto_sso
 
 go 1.23.1
 
