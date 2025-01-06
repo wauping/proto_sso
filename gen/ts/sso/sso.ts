@@ -3,11 +3,13 @@
  * compiler version: 5.29.0
  * source: sso/sso.proto
  * git: https://github.com/thesayyn/protoc-gen-ts */
-import * as pb_1 from "google-protobuf";
-import * as grpc_1 from "@grpc/grpc-js";
+import * as pb_1 from 'google-protobuf';
+import * as grpc_1 from '@grpc/grpc-js';
+
 export namespace auth {
     export class RegisterRequest extends pb_1.Message {
         #one_of_decls: number[][] = [];
+
         constructor(data?: any[] | {
             username?: string;
             password?: string;
@@ -23,18 +25,23 @@ export namespace auth {
                 }
             }
         }
+
         get username() {
             return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
         }
+
         set username(value: string) {
             pb_1.Message.setField(this, 1, value);
         }
+
         get password() {
             return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
         }
+
         set password(value: string) {
             pb_1.Message.setField(this, 2, value);
         }
+
         static fromObject(data: {
             username?: string;
             password?: string;
@@ -48,6 +55,7 @@ export namespace auth {
             }
             return message;
         }
+
         toObject() {
             const data: {
                 username?: string;
@@ -61,6 +69,7 @@ export namespace auth {
             }
             return data;
         }
+
         serialize(): Uint8Array;
         serialize(w: pb_1.BinaryWriter): void;
         serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
@@ -72,8 +81,10 @@ export namespace auth {
             if (!w)
                 return writer.getResultBuffer();
         }
+
         static deserialize(bytes: Uint8Array | pb_1.BinaryReader): RegisterRequest {
-            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new RegisterRequest();
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes),
+                message = new RegisterRequest();
             while (reader.nextField()) {
                 if (reader.isEndGroup())
                     break;
@@ -84,20 +95,25 @@ export namespace auth {
                     case 2:
                         message.password = reader.readString();
                         break;
-                    default: reader.skipField();
+                    default:
+                        reader.skipField();
                 }
             }
             return message;
         }
+
         serializeBinary(): Uint8Array {
             return this.serialize();
         }
+
         static deserializeBinary(bytes: Uint8Array): RegisterRequest {
             return RegisterRequest.deserialize(bytes);
         }
     }
+
     export class RegisterResponse extends pb_1.Message {
         #one_of_decls: number[][] = [];
+
         constructor(data?: any[] | {
             user_id?: number;
         }) {
@@ -109,12 +125,15 @@ export namespace auth {
                 }
             }
         }
+
         get user_id() {
             return pb_1.Message.getFieldWithDefault(this, 1, 0) as number;
         }
+
         set user_id(value: number) {
             pb_1.Message.setField(this, 1, value);
         }
+
         static fromObject(data: {
             user_id?: number;
         }): RegisterResponse {
@@ -124,6 +143,7 @@ export namespace auth {
             }
             return message;
         }
+
         toObject() {
             const data: {
                 user_id?: number;
@@ -133,6 +153,7 @@ export namespace auth {
             }
             return data;
         }
+
         serialize(): Uint8Array;
         serialize(w: pb_1.BinaryWriter): void;
         serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
@@ -142,8 +163,10 @@ export namespace auth {
             if (!w)
                 return writer.getResultBuffer();
         }
+
         static deserialize(bytes: Uint8Array | pb_1.BinaryReader): RegisterResponse {
-            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new RegisterResponse();
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes),
+                message = new RegisterResponse();
             while (reader.nextField()) {
                 if (reader.isEndGroup())
                     break;
@@ -151,20 +174,25 @@ export namespace auth {
                     case 1:
                         message.user_id = reader.readInt64();
                         break;
-                    default: reader.skipField();
+                    default:
+                        reader.skipField();
                 }
             }
             return message;
         }
+
         serializeBinary(): Uint8Array {
             return this.serialize();
         }
+
         static deserializeBinary(bytes: Uint8Array): RegisterResponse {
             return RegisterResponse.deserialize(bytes);
         }
     }
+
     export class LoginRequest extends pb_1.Message {
         #one_of_decls: number[][] = [];
+
         constructor(data?: any[] | {
             username?: string;
             password?: string;
@@ -184,24 +212,31 @@ export namespace auth {
                 }
             }
         }
+
         get username() {
             return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
         }
+
         set username(value: string) {
             pb_1.Message.setField(this, 1, value);
         }
+
         get password() {
             return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
         }
+
         set password(value: string) {
             pb_1.Message.setField(this, 2, value);
         }
+
         get app_id() {
             return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
         }
+
         set app_id(value: number) {
             pb_1.Message.setField(this, 3, value);
         }
+
         static fromObject(data: {
             username?: string;
             password?: string;
@@ -219,6 +254,7 @@ export namespace auth {
             }
             return message;
         }
+
         toObject() {
             const data: {
                 username?: string;
@@ -236,6 +272,7 @@ export namespace auth {
             }
             return data;
         }
+
         serialize(): Uint8Array;
         serialize(w: pb_1.BinaryWriter): void;
         serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
@@ -249,8 +286,10 @@ export namespace auth {
             if (!w)
                 return writer.getResultBuffer();
         }
+
         static deserialize(bytes: Uint8Array | pb_1.BinaryReader): LoginRequest {
-            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new LoginRequest();
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes),
+                message = new LoginRequest();
             while (reader.nextField()) {
                 if (reader.isEndGroup())
                     break;
@@ -264,20 +303,25 @@ export namespace auth {
                     case 3:
                         message.app_id = reader.readInt32();
                         break;
-                    default: reader.skipField();
+                    default:
+                        reader.skipField();
                 }
             }
             return message;
         }
+
         serializeBinary(): Uint8Array {
             return this.serialize();
         }
+
         static deserializeBinary(bytes: Uint8Array): LoginRequest {
             return LoginRequest.deserialize(bytes);
         }
     }
+
     export class LoginResponse extends pb_1.Message {
         #one_of_decls: number[][] = [];
+
         constructor(data?: any[] | {
             token?: string;
         }) {
@@ -289,12 +333,15 @@ export namespace auth {
                 }
             }
         }
+
         get token() {
             return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
         }
+
         set token(value: string) {
             pb_1.Message.setField(this, 1, value);
         }
+
         static fromObject(data: {
             token?: string;
         }): LoginResponse {
@@ -304,6 +351,7 @@ export namespace auth {
             }
             return message;
         }
+
         toObject() {
             const data: {
                 token?: string;
@@ -313,6 +361,7 @@ export namespace auth {
             }
             return data;
         }
+
         serialize(): Uint8Array;
         serialize(w: pb_1.BinaryWriter): void;
         serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
@@ -322,8 +371,10 @@ export namespace auth {
             if (!w)
                 return writer.getResultBuffer();
         }
+
         static deserialize(bytes: Uint8Array | pb_1.BinaryReader): LoginResponse {
-            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new LoginResponse();
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes),
+                message = new LoginResponse();
             while (reader.nextField()) {
                 if (reader.isEndGroup())
                     break;
@@ -331,20 +382,25 @@ export namespace auth {
                     case 1:
                         message.token = reader.readString();
                         break;
-                    default: reader.skipField();
+                    default:
+                        reader.skipField();
                 }
             }
             return message;
         }
+
         serializeBinary(): Uint8Array {
             return this.serialize();
         }
+
         static deserializeBinary(bytes: Uint8Array): LoginResponse {
             return LoginResponse.deserialize(bytes);
         }
     }
+
     export class IsAdminRequest extends pb_1.Message {
         #one_of_decls: number[][] = [];
+
         constructor(data?: any[] | {
             user_id?: number;
         }) {
@@ -356,12 +412,15 @@ export namespace auth {
                 }
             }
         }
+
         get user_id() {
             return pb_1.Message.getFieldWithDefault(this, 1, 0) as number;
         }
+
         set user_id(value: number) {
             pb_1.Message.setField(this, 1, value);
         }
+
         static fromObject(data: {
             user_id?: number;
         }): IsAdminRequest {
@@ -371,6 +430,7 @@ export namespace auth {
             }
             return message;
         }
+
         toObject() {
             const data: {
                 user_id?: number;
@@ -380,6 +440,7 @@ export namespace auth {
             }
             return data;
         }
+
         serialize(): Uint8Array;
         serialize(w: pb_1.BinaryWriter): void;
         serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
@@ -389,8 +450,10 @@ export namespace auth {
             if (!w)
                 return writer.getResultBuffer();
         }
+
         static deserialize(bytes: Uint8Array | pb_1.BinaryReader): IsAdminRequest {
-            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new IsAdminRequest();
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes),
+                message = new IsAdminRequest();
             while (reader.nextField()) {
                 if (reader.isEndGroup())
                     break;
@@ -398,20 +461,25 @@ export namespace auth {
                     case 1:
                         message.user_id = reader.readInt64();
                         break;
-                    default: reader.skipField();
+                    default:
+                        reader.skipField();
                 }
             }
             return message;
         }
+
         serializeBinary(): Uint8Array {
             return this.serialize();
         }
+
         static deserializeBinary(bytes: Uint8Array): IsAdminRequest {
             return IsAdminRequest.deserialize(bytes);
         }
     }
+
     export class IsAdminResponse extends pb_1.Message {
         #one_of_decls: number[][] = [];
+
         constructor(data?: any[] | {
             is_admin?: boolean;
         }) {
@@ -423,12 +491,15 @@ export namespace auth {
                 }
             }
         }
+
         get is_admin() {
             return pb_1.Message.getFieldWithDefault(this, 1, false) as boolean;
         }
+
         set is_admin(value: boolean) {
             pb_1.Message.setField(this, 1, value);
         }
+
         static fromObject(data: {
             is_admin?: boolean;
         }): IsAdminResponse {
@@ -438,6 +509,7 @@ export namespace auth {
             }
             return message;
         }
+
         toObject() {
             const data: {
                 is_admin?: boolean;
@@ -447,6 +519,7 @@ export namespace auth {
             }
             return data;
         }
+
         serialize(): Uint8Array;
         serialize(w: pb_1.BinaryWriter): void;
         serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
@@ -456,8 +529,10 @@ export namespace auth {
             if (!w)
                 return writer.getResultBuffer();
         }
+
         static deserialize(bytes: Uint8Array | pb_1.BinaryReader): IsAdminResponse {
-            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new IsAdminResponse();
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes),
+                message = new IsAdminResponse();
             while (reader.nextField()) {
                 if (reader.isEndGroup())
                     break;
@@ -465,42 +540,60 @@ export namespace auth {
                     case 1:
                         message.is_admin = reader.readBool();
                         break;
-                    default: reader.skipField();
+                    default:
+                        reader.skipField();
                 }
             }
             return message;
         }
+
         serializeBinary(): Uint8Array {
             return this.serialize();
         }
+
         static deserializeBinary(bytes: Uint8Array): IsAdminResponse {
             return IsAdminResponse.deserialize(bytes);
         }
     }
+
     interface GrpcUnaryServiceInterface<P, R> {
         (message: P, metadata: grpc_1.Metadata, options: grpc_1.CallOptions, callback: grpc_1.requestCallback<R>): grpc_1.ClientUnaryCall;
+
         (message: P, metadata: grpc_1.Metadata, callback: grpc_1.requestCallback<R>): grpc_1.ClientUnaryCall;
+
         (message: P, options: grpc_1.CallOptions, callback: grpc_1.requestCallback<R>): grpc_1.ClientUnaryCall;
+
         (message: P, callback: grpc_1.requestCallback<R>): grpc_1.ClientUnaryCall;
     }
+
     interface GrpcStreamServiceInterface<P, R> {
         (message: P, metadata: grpc_1.Metadata, options?: grpc_1.CallOptions): grpc_1.ClientReadableStream<R>;
+
         (message: P, options?: grpc_1.CallOptions): grpc_1.ClientReadableStream<R>;
     }
+
     interface GrpWritableServiceInterface<P, R> {
         (metadata: grpc_1.Metadata, options: grpc_1.CallOptions, callback: grpc_1.requestCallback<R>): grpc_1.ClientWritableStream<P>;
+
         (metadata: grpc_1.Metadata, callback: grpc_1.requestCallback<R>): grpc_1.ClientWritableStream<P>;
+
         (options: grpc_1.CallOptions, callback: grpc_1.requestCallback<R>): grpc_1.ClientWritableStream<P>;
+
         (callback: grpc_1.requestCallback<R>): grpc_1.ClientWritableStream<P>;
     }
+
     interface GrpcChunkServiceInterface<P, R> {
         (metadata: grpc_1.Metadata, options?: grpc_1.CallOptions): grpc_1.ClientDuplexStream<P, R>;
+
         (options?: grpc_1.CallOptions): grpc_1.ClientDuplexStream<P, R>;
     }
+
     interface GrpcPromiseServiceInterface<P, R> {
         (message: P, metadata: grpc_1.Metadata, options?: grpc_1.CallOptions): Promise<R>;
+
         (message: P, options?: grpc_1.CallOptions): Promise<R>;
     }
+
     export abstract class UnimplementedAuthService {
         static definition = {
             Register: {
@@ -531,15 +624,21 @@ export namespace auth {
                 responseDeserialize: (bytes: Buffer) => IsAdminResponse.deserialize(new Uint8Array(bytes))
             }
         };
+
         [method: string]: grpc_1.UntypedHandleCall;
+
         abstract Register(call: grpc_1.ServerUnaryCall<RegisterRequest, RegisterResponse>, callback: grpc_1.sendUnaryData<RegisterResponse>): void;
+
         abstract Login(call: grpc_1.ServerUnaryCall<LoginRequest, LoginResponse>, callback: grpc_1.sendUnaryData<LoginResponse>): void;
+
         abstract IsAdmin(call: grpc_1.ServerUnaryCall<IsAdminRequest, IsAdminResponse>, callback: grpc_1.sendUnaryData<IsAdminResponse>): void;
     }
+
     export class AuthClient extends grpc_1.makeGenericClientConstructor(UnimplementedAuthService.definition, "Auth", {}) {
         constructor(address: string, credentials: grpc_1.ChannelCredentials, options?: Partial<grpc_1.ChannelOptions>) {
             super(address, credentials, options);
         }
+
         Register: GrpcUnaryServiceInterface<RegisterRequest, RegisterResponse> = (message: RegisterRequest, metadata: grpc_1.Metadata | grpc_1.CallOptions | grpc_1.requestCallback<RegisterResponse>, options?: grpc_1.CallOptions | grpc_1.requestCallback<RegisterResponse>, callback?: grpc_1.requestCallback<RegisterResponse>): grpc_1.ClientUnaryCall => {
             return super.Register(message, metadata, options, callback);
         };
