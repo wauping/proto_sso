@@ -1,0 +1,219 @@
+syntax = "proto3";
+
+package mdts;
+
+option go_package = "wauping.mdts.v1;mdtsv1";
+
+import "google/protobuf/timestamp.proto";
+
+service UserService {
+  rpc GetById (GetUserByIdRequest) returns (UserResponse);
+  rpc GetByUsername (GetUserByUsernameRequest) returns (UserResponse);
+  rpc GetAll (GetAllUsersRequest) returns (UsersResponse);
+  rpc Update (UpdateUserRequest) returns (UpdateUserResponse);
+  rpc Delete (DeleteUserRequest) returns (DeleteUserResponse);
+}
+
+service AlertService {
+  rpc Create (CreateAlertRequest) returns (AlertResponse);
+  rpc GetById (GetAlertByIdRequest) returns (AlertResponse);
+  rpc GetByPeriod (GetAlertsByPeriodRequest) returns (AlertsResponse);
+  rpc GetAll (GetAllAlertsRequest) returns (AlertsResponse);
+  rpc Update (UpdateAlertRequest) returns (UpdateAlertResponse);
+  rpc Delete (DeleteAlertRequest) returns (DeleteAlertResponse);
+}
+
+service BplaService {
+  rpc Create (CreateBplaRequest) returns (BplaResponse);
+  rpc GetById (GetBplaByIdRequest) returns (BplaResponse);
+  rpc GetByEntryDateRange (GetBplaByEntryDateRangeRequest) returns (BplasResponse);
+  rpc GetByInUsage (GetBplaByInUsageRequest) returns (BplasResponse);
+  rpc GetByModelAndBrand (GetBplaByModelAndBrandRequest) returns (BplasResponse);
+  rpc GetAll (GetAllBplasRequest) returns (BplasResponse);
+  rpc Update (UpdateBplaRequest) returns (UpdateBplaResponse);
+  rpc Delete (DeleteBplaRequest) returns (DeleteBplaResponse);
+}
+
+message User {
+  int64 id = 1;
+  string username = 2;
+  bytes passwordhash = 3;
+  int64 role = 4;
+}
+
+message Alert {
+  int64 id = 1;
+  google.protobuf.Timestamp date = 2;
+  google.protobuf.Timestamp time = 3;
+  int64 bpla_id = 4;
+  float latitude = 5;
+  float longitude = 6;
+}
+
+message Bpla {
+  int64 id = 1;
+  string brand = 2;
+  string model = 3;
+  google.protobuf.Timestamp entrydate = 4;
+  bool inusage = 5;
+}
+
+message CreateAlertRequest {
+  google.protobuf.Timestamp date = 1;
+  google.protobuf.Timestamp time = 2;
+  int64 bpla_id = 3;
+  float latitude = 4;
+  float longitude = 5;
+}
+
+message GetAlertsByPeriodRequest {
+  google.protobuf.Timestamp start_date = 1;
+  google.protobuf.Timestamp end_date = 2;
+}
+
+message CreateBplaRequest {
+  string brand = 1;
+  string model = 2;
+  google.protobuf.Timestamp entrydate = 3;
+  bool inusage = 4;
+}
+
+message GetUserByIdRequest {
+  int64 id = 1;
+}
+
+message GetUserByUsernameRequest {
+  string username = 1;
+}
+
+message GetAllUsersRequest {}
+
+message UpdateUserParams {
+  int64 id = 1;
+  string username = 2;
+  bytes passwordhash = 3;
+  int64 role = 4;
+}
+
+message UpdateUserRequest {
+  UpdateUserParams updateuserparams = 1;
+}
+
+message DeleteUserRequest {
+  int64 id = 1;
+}
+
+message UserResponse {
+  User user = 1;
+}
+
+message UsersResponse {
+  repeated User user = 1;
+}
+
+message UpdateUserResponse {
+  string error = 1;
+}
+
+message DeleteUserResponse {
+  string error = 1;
+}
+
+message GetAlertByIdRequest {
+  int64 id = 1;
+}
+
+message GetAlertByUsernameRequest {
+  string username = 1;
+}
+
+message GetAllAlertsRequest {}
+
+message UpdateAlertParams {
+  int64 id = 1;
+  google.protobuf.Timestamp date = 2;
+  google.protobuf.Timestamp time = 3;
+  int64 bpla_id = 4;
+  float latitude = 5;
+  float longitude = 6;
+}
+
+message UpdateAlertRequest {
+  UpdateAlertParams updatealertparams = 1;
+}
+
+message DeleteAlertRequest {
+  int64 id = 1;
+}
+
+message AlertResponse {
+  Alert alert = 1;
+}
+
+message AlertsResponse {
+  repeated Alert alert = 1;
+}
+
+message UpdateAlertResponse {
+  string error = 1;
+}
+
+message DeleteAlertResponse {
+  string error = 1;
+}
+
+message GetBplaByIdRequest {
+  int64 id = 1;
+}
+
+message GetBplaByUsernameRequest {
+  string username = 1;
+}
+
+message GetAllBplasRequest {}
+
+message GetBplaByModelAndBrandRequest {
+  string brand = 1;
+  string model = 2;
+}
+
+message GetBplaByEntryDateRangeRequest {
+  google.protobuf.Timestamp start_date = 1;
+  google.protobuf.Timestamp end_date = 2;
+}
+
+message GetBplaByInUsageRequest {
+  bool in_usage = 1;
+}
+
+message UpdateBplaParams {
+  int64 id = 1;
+  string brand = 2;
+  string model = 3;
+  google.protobuf.Timestamp entrydate = 4;
+  bool inusage = 5;
+}
+
+message UpdateBplaRequest {
+  UpdateBplaParams updatebplaparams = 1;
+}
+
+message DeleteBplaRequest {
+  int64 id = 1;
+}
+
+message BplaResponse {
+  Bpla bpla = 1;
+}
+
+message BplasResponse {
+  repeated Bpla bpla = 1;
+}
+
+message UpdateBplaResponse {
+  string error = 1;
+}
+
+message DeleteBplaResponse {
+  string error = 1;
+}
