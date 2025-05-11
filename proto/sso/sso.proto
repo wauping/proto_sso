@@ -69,9 +69,8 @@ message AuthorizationRequest {
 }
 
 message AuthorizationResponse {
-  string redirect_uri = 1;
-  string code = 2;
-  string state = 3;
+  string code = 1;
+  string state = 2;
 }
 
 message TokenRequest {
@@ -111,7 +110,6 @@ message JWKSResponse {
   }
 }
 
-// Original Messages
 message RegisterRequest {
   string username = 1;
   string password = 2;
