@@ -2,14 +2,116 @@ syntax = "proto3";
 
 package auth;
 
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
 option go_package = "wauping.sso.v1;ssov1";
 
 service Auth {
+  rpc Discover (google.protobuf.Empty) returns (DiscoveryResponse) {
+    option (google.api.http) = {
+      get: "/.well-known/openid-configuration"
+    };
+  }
+
+  rpc Authorize (AuthorizationRequest) returns (AuthorizationResponse) {
+    option (google.api.http) = {
+      get: "/authorize"
+    };
+  }
+
+  rpc Token (TokenRequest) returns (TokenResponse) {
+    option (google.api.http) = {
+      post: "/token"
+      body: "*"
+    };
+  }
+
+  rpc UserInfo (google.protobuf.Empty) returns (UserInfoResponse) {
+    option (google.api.http) = {
+      get: "/userinfo"
+    };
+  }
+
+  rpc JWKS (google.protobuf.Empty) returns (JWKSResponse) {
+    option (google.api.http) = {
+      get: "/jwks"
+    };
+  }
+
   rpc Register (RegisterRequest) returns (RegisterResponse);
   rpc Login (LoginRequest) returns (LoginResponse);
   rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
 }
 
+message DiscoveryResponse {
+  string issuer = 1;
+  string authorization_endpoint = 2;
+  string token_endpoint = 3;
+  string jwks_uri = 4;
+  string userinfo_endpoint = 5;
+  repeated string response_types_supported = 6;
+  repeated string subject_types_supported = 7;
+  repeated string id_token_signing_alg_values_supported = 8;
+  repeated string scopes_supported = 9;
+  repeated string claims_supported = 10;
+}
+
+message AuthorizationRequest {
+  string client_id = 1;
+  string redirect_uri = 2;
+  string response_type = 3;
+  string scope = 4;
+  string state = 5;
+  string code_challenge = 6;
+  string code_challenge_method = 7;
+  string nonce = 8;
+}
+
+message AuthorizationResponse {
+  string redirect_uri = 1;
+  string code = 2;
+  string state = 3;
+}
+
+message TokenRequest {
+  string grant_type = 1;
+  string code = 2;
+  string redirect_uri = 3;
+  string code_verifier = 4;
+  string client_id = 5;
+  string client_secret = 6;
+}
+
+message TokenResponse {
+  string access_token = 1;
+  string token_type = 2;
+  int64 expires_in = 3;
+  string id_token = 4;
+  string refresh_token = 5;
+}
+
+message UserInfoResponse {
+  string sub = 1;
+  string name = 2;
+  string email = 3;
+  bool email_verified = 4;
+}
+
+message JWKSResponse {
+  repeated JWK keys = 1;
+
+  message JWK {
+    string kty = 1;
+    string kid = 2;
+    string use = 3;
+    string alg = 4;
+    string n = 5;
+    string e = 6;
+  }
+}
+
+// Original Messages
 message RegisterRequest {
   string username = 1;
   string password = 2;

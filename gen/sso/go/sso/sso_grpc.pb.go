@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -19,15 +20,25 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Auth_Register_FullMethodName = "/auth.Auth/Register"
-	Auth_Login_FullMethodName    = "/auth.Auth/Login"
-	Auth_IsAdmin_FullMethodName  = "/auth.Auth/IsAdmin"
+	Auth_Discover_FullMethodName  = "/auth.Auth/Discover"
+	Auth_Authorize_FullMethodName = "/auth.Auth/Authorize"
+	Auth_Token_FullMethodName     = "/auth.Auth/Token"
+	Auth_UserInfo_FullMethodName  = "/auth.Auth/UserInfo"
+	Auth_JWKS_FullMethodName      = "/auth.Auth/JWKS"
+	Auth_Register_FullMethodName  = "/auth.Auth/Register"
+	Auth_Login_FullMethodName     = "/auth.Auth/Login"
+	Auth_IsAdmin_FullMethodName   = "/auth.Auth/IsAdmin"
 )
 
 // AuthClient is the client API for Auth service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthClient interface {
+	Discover(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*DiscoveryResponse, error)
+	Authorize(ctx context.Context, in *AuthorizationRequest, opts ...grpc.CallOption) (*AuthorizationResponse, error)
+	Token(ctx context.Context, in *TokenRequest, opts ...grpc.CallOption) (*TokenResponse, error)
+	UserInfo(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*UserInfoResponse, error)
+	JWKS(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*JWKSResponse, error)
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	IsAdmin(ctx context.Context, in *IsAdminRequest, opts ...grpc.CallOption) (*IsAdminResponse, error)
@@ -39,6 +50,56 @@ type authClient struct {
 
 func NewAuthClient(cc grpc.ClientConnInterface) AuthClient {
 	return &authClient{cc}
+}
+
+func (c *authClient) Discover(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*DiscoveryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DiscoveryResponse)
+	err := c.cc.Invoke(ctx, Auth_Discover_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) Authorize(ctx context.Context, in *AuthorizationRequest, opts ...grpc.CallOption) (*AuthorizationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AuthorizationResponse)
+	err := c.cc.Invoke(ctx, Auth_Authorize_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) Token(ctx context.Context, in *TokenRequest, opts ...grpc.CallOption) (*TokenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TokenResponse)
+	err := c.cc.Invoke(ctx, Auth_Token_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) UserInfo(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*UserInfoResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UserInfoResponse)
+	err := c.cc.Invoke(ctx, Auth_UserInfo_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) JWKS(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*JWKSResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(JWKSResponse)
+	err := c.cc.Invoke(ctx, Auth_JWKS_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *authClient) Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
@@ -75,6 +136,11 @@ func (c *authClient) IsAdmin(ctx context.Context, in *IsAdminRequest, opts ...gr
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility.
 type AuthServer interface {
+	Discover(context.Context, *emptypb.Empty) (*DiscoveryResponse, error)
+	Authorize(context.Context, *AuthorizationRequest) (*AuthorizationResponse, error)
+	Token(context.Context, *TokenRequest) (*TokenResponse, error)
+	UserInfo(context.Context, *emptypb.Empty) (*UserInfoResponse, error)
+	JWKS(context.Context, *emptypb.Empty) (*JWKSResponse, error)
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	IsAdmin(context.Context, *IsAdminRequest) (*IsAdminResponse, error)
@@ -88,6 +154,21 @@ type AuthServer interface {
 // pointer dereference when methods are called.
 type UnimplementedAuthServer struct{}
 
+func (UnimplementedAuthServer) Discover(context.Context, *emptypb.Empty) (*DiscoveryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Discover not implemented")
+}
+func (UnimplementedAuthServer) Authorize(context.Context, *AuthorizationRequest) (*AuthorizationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Authorize not implemented")
+}
+func (UnimplementedAuthServer) Token(context.Context, *TokenRequest) (*TokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Token not implemented")
+}
+func (UnimplementedAuthServer) UserInfo(context.Context, *emptypb.Empty) (*UserInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserInfo not implemented")
+}
+func (UnimplementedAuthServer) JWKS(context.Context, *emptypb.Empty) (*JWKSResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method JWKS not implemented")
+}
 func (UnimplementedAuthServer) Register(context.Context, *RegisterRequest) (*RegisterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
 }
@@ -116,6 +197,96 @@ func RegisterAuthServer(s grpc.ServiceRegistrar, srv AuthServer) {
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&Auth_ServiceDesc, srv)
+}
+
+func _Auth_Discover_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).Discover(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_Discover_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).Discover(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_Authorize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AuthorizationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).Authorize(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_Authorize_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).Authorize(ctx, req.(*AuthorizationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_Token_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).Token(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_Token_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).Token(ctx, req.(*TokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_UserInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).UserInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_UserInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).UserInfo(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_JWKS_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).JWKS(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_JWKS_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).JWKS(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Auth_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -179,6 +350,26 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "auth.Auth",
 	HandlerType: (*AuthServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Discover",
+			Handler:    _Auth_Discover_Handler,
+		},
+		{
+			MethodName: "Authorize",
+			Handler:    _Auth_Authorize_Handler,
+		},
+		{
+			MethodName: "Token",
+			Handler:    _Auth_Token_Handler,
+		},
+		{
+			MethodName: "UserInfo",
+			Handler:    _Auth_UserInfo_Handler,
+		},
+		{
+			MethodName: "JWKS",
+			Handler:    _Auth_JWKS_Handler,
+		},
 		{
 			MethodName: "Register",
 			Handler:    _Auth_Register_Handler,

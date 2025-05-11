@@ -8,15 +8,43 @@ import type { IsAdminResponse } from "./sso";
 import type { IsAdminRequest } from "./sso";
 import type { LoginResponse } from "./sso";
 import type { LoginRequest } from "./sso";
-import { stackIntercept } from "@protobuf-ts/runtime-rpc";
 import type { RegisterResponse } from "./sso";
 import type { RegisterRequest } from "./sso";
+import type { JWKSResponse } from "./sso";
+import type { UserInfoResponse } from "./sso";
+import type { TokenResponse } from "./sso";
+import type { TokenRequest } from "./sso";
+import type { AuthorizationResponse } from "./sso";
+import type { AuthorizationRequest } from "./sso";
+import { stackIntercept } from "@protobuf-ts/runtime-rpc";
+import type { DiscoveryResponse } from "./sso";
+import type { Empty } from "../google/protobuf/empty";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
 /**
  * @generated from protobuf service auth.Auth
  */
 export interface IAuthClient {
+    /**
+     * @generated from protobuf rpc: Discover(google.protobuf.Empty) returns (auth.DiscoveryResponse);
+     */
+    discover(input: Empty, options?: RpcOptions): UnaryCall<Empty, DiscoveryResponse>;
+    /**
+     * @generated from protobuf rpc: Authorize(auth.AuthorizationRequest) returns (auth.AuthorizationResponse);
+     */
+    authorize(input: AuthorizationRequest, options?: RpcOptions): UnaryCall<AuthorizationRequest, AuthorizationResponse>;
+    /**
+     * @generated from protobuf rpc: Token(auth.TokenRequest) returns (auth.TokenResponse);
+     */
+    token(input: TokenRequest, options?: RpcOptions): UnaryCall<TokenRequest, TokenResponse>;
+    /**
+     * @generated from protobuf rpc: UserInfo(google.protobuf.Empty) returns (auth.UserInfoResponse);
+     */
+    userInfo(input: Empty, options?: RpcOptions): UnaryCall<Empty, UserInfoResponse>;
+    /**
+     * @generated from protobuf rpc: JWKS(google.protobuf.Empty) returns (auth.JWKSResponse);
+     */
+    jWKS(input: Empty, options?: RpcOptions): UnaryCall<Empty, JWKSResponse>;
     /**
      * @generated from protobuf rpc: Register(auth.RegisterRequest) returns (auth.RegisterResponse);
      */
@@ -40,24 +68,59 @@ export class AuthClient implements IAuthClient, ServiceInfo {
     constructor(private readonly _transport: RpcTransport) {
     }
     /**
+     * @generated from protobuf rpc: Discover(google.protobuf.Empty) returns (auth.DiscoveryResponse);
+     */
+    discover(input: Empty, options?: RpcOptions): UnaryCall<Empty, DiscoveryResponse> {
+        const method = this.methods[0], opt = this._transport.mergeOptions(options);
+        return stackIntercept<Empty, DiscoveryResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: Authorize(auth.AuthorizationRequest) returns (auth.AuthorizationResponse);
+     */
+    authorize(input: AuthorizationRequest, options?: RpcOptions): UnaryCall<AuthorizationRequest, AuthorizationResponse> {
+        const method = this.methods[1], opt = this._transport.mergeOptions(options);
+        return stackIntercept<AuthorizationRequest, AuthorizationResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: Token(auth.TokenRequest) returns (auth.TokenResponse);
+     */
+    token(input: TokenRequest, options?: RpcOptions): UnaryCall<TokenRequest, TokenResponse> {
+        const method = this.methods[2], opt = this._transport.mergeOptions(options);
+        return stackIntercept<TokenRequest, TokenResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: UserInfo(google.protobuf.Empty) returns (auth.UserInfoResponse);
+     */
+    userInfo(input: Empty, options?: RpcOptions): UnaryCall<Empty, UserInfoResponse> {
+        const method = this.methods[3], opt = this._transport.mergeOptions(options);
+        return stackIntercept<Empty, UserInfoResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: JWKS(google.protobuf.Empty) returns (auth.JWKSResponse);
+     */
+    jWKS(input: Empty, options?: RpcOptions): UnaryCall<Empty, JWKSResponse> {
+        const method = this.methods[4], opt = this._transport.mergeOptions(options);
+        return stackIntercept<Empty, JWKSResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
      * @generated from protobuf rpc: Register(auth.RegisterRequest) returns (auth.RegisterResponse);
      */
     register(input: RegisterRequest, options?: RpcOptions): UnaryCall<RegisterRequest, RegisterResponse> {
-        const method = this.methods[0], opt = this._transport.mergeOptions(options);
+        const method = this.methods[5], opt = this._transport.mergeOptions(options);
         return stackIntercept<RegisterRequest, RegisterResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: Login(auth.LoginRequest) returns (auth.LoginResponse);
      */
     login(input: LoginRequest, options?: RpcOptions): UnaryCall<LoginRequest, LoginResponse> {
-        const method = this.methods[1], opt = this._transport.mergeOptions(options);
+        const method = this.methods[6], opt = this._transport.mergeOptions(options);
         return stackIntercept<LoginRequest, LoginResponse>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: IsAdmin(auth.IsAdminRequest) returns (auth.IsAdminResponse);
      */
     isAdmin(input: IsAdminRequest, options?: RpcOptions): UnaryCall<IsAdminRequest, IsAdminResponse> {
-        const method = this.methods[2], opt = this._transport.mergeOptions(options);
+        const method = this.methods[7], opt = this._transport.mergeOptions(options);
         return stackIntercept<IsAdminRequest, IsAdminResponse>("unary", this._transport, method, opt, input);
     }
 }
